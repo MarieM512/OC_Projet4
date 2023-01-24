@@ -1,8 +1,10 @@
-package com.example.projet4;
+package com.metay.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.projet4.R;
 
 public class MainActivity extends AppCompatActivity {
 

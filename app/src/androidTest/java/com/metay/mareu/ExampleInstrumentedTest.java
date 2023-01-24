@@ -1,4 +1,4 @@
-package com.example.projet4;
+package com.metay.mareu;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.projet4", appContext.getPackageName());
+        assertEquals("com.metay.mareu", appContext.getPackageName());
     }
 }

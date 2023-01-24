@@ -1,4 +1,4 @@
-package com.example.projet4;
+package com.metay.mareu;
 
 import org.junit.Test;
 
