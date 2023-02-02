@@ -4,7 +4,7 @@ import com.metay.mareu.model.Meeting;
 
 import java.util.List;
 
-public interface MeetingApiService {
+public interface MeetingDao {
 
     /**
      * Get all my Meetings

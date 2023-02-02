@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class FakeMeetingApiServiceGenerator {
 
-    static List<Meeting> generateMeetings() {
+    public static List<Meeting> generateMeetings() {
         return new ArrayList<>(FAKE_MEETINGS);
     }
 

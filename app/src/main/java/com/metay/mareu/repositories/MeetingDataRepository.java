@@ -1,14 +1,15 @@
-package com.metay.mareu.api;
+package com.metay.mareu.repositories;
 
 
 import static com.metay.mareu.api.FakeMeetingApiServiceGenerator.generateMeetings;
 
+import com.metay.mareu.api.MeetingDao;
 import com.metay.mareu.model.Meeting;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeMeetingApiService implements MeetingApiService {
+public class MeetingDataRepository implements MeetingDao {
 
     private List<Meeting> mMeetingList = generateMeetings();
     private ArrayList<Meeting> mMeetings = new ArrayList<>();
