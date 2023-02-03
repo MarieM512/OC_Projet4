@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.metay.mareu.api.FakeMeetingApiServiceGenerator;
-import com.metay.mareu.api.MeetingDao;
+import com.metay.mareu.api.MeetingApiService;
 import com.metay.mareu.di.DI;
 import com.metay.mareu.model.Meeting;
 
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class MeetingUnitTest {
 
-    private MeetingDao mMeetingApiService;
+    private MeetingApiService mMeetingApiService;
 
     @Before
     public void setup() {

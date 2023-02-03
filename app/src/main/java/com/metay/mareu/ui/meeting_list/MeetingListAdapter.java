@@ -12,15 +12,19 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet4.R;
+import com.metay.mareu.api.MeetingApiService;
+import com.metay.mareu.events.DeleteFakeMeetingEvent;
 import com.metay.mareu.model.Meeting;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.MeetingViewHolder> {
 
-    MeetingClickInterface mMeetingClickInterface;
+    MeetingApiService mMeetingApiService;
 
-    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingClickInterface meetingClickInterface) {
+    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingApiService meetingApiService) {
         super(diffCallback);
-        this.mMeetingClickInterface = meetingClickInterface;
+        this.mMeetingApiService = meetingApiService;
     }
 
     @NonNull
@@ -37,32 +41,28 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name;
-        TextView time;
+        TextView meeting;
         TextView members;
-        TextView room;
         ImageButton deleteButton;
 
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.item_name);
+            meeting = itemView.findViewById(R.id.item_name);
             members = itemView.findViewById(R.id.item_members);
             deleteButton = itemView.findViewById(R.id.item_delete_button);
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mMeetingClickInterface.onDelete(getBindingAdapterPosition());
-                }
-            });
         }
 
         public void bind(Meeting meeting) {
-            name.setText(meeting.getName());
+            String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
+            this.meeting.setText(title);
             members.setText(meeting.getMembers());
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new DeleteFakeMeetingEvent(meeting));
+                }
+            });
         }
     }
 
-    public interface MeetingClickInterface {
-        void onDelete(int position);
-    }
 }

@@ -1,28 +1,28 @@
 package com.metay.mareu.di;
 
 import com.metay.mareu.repositories.MeetingDataRepository;
-import com.metay.mareu.api.MeetingDao;
+import com.metay.mareu.api.MeetingApiService;
 
 /**
  * Dependency injector to get instance of services
  */
 public class DI {
 
-    private static MeetingDao service = new MeetingDataRepository();
+    private static MeetingApiService service = new MeetingDataRepository();
 
     /**
-     * Get an instance on @{@link MeetingDao}
+     * Get an instance on @{@link MeetingApiService}
      * @return
      */
-    public static MeetingDao getMeetingApiService() {
+    public static MeetingApiService getMeetingApiService() {
         return service;
     }
 
     /**
-     * Get always a new instance on @{@link MeetingDao}. Useful for tests, so we ensure the context is clean.
+     * Get always a new instance on @{@link MeetingApiService}. Useful for tests, so we ensure the context is clean.
      * @return
      */
-    public static MeetingDao getNewInstanceApiService() {
+    public static MeetingApiService getNewInstanceApiService() {
         return new MeetingDataRepository();
     }
 }

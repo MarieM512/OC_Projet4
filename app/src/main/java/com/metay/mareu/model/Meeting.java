@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,15 +19,19 @@ public class Meeting {
     /** Time of the meeting */
     private String time;
 
+    /** Day of the meeting */
+    private String date;
+
     /** Room of the meeting */
     private Room room;
 
     /** Participants of the meeting */
     private String members;
 
-    public Meeting(String name, String time, Room room, String members) {
+    public Meeting(String name,String date, String time, Room room, String members) {
         this.id = UUID.randomUUID().toString(); // Automatically generate
         this.name = name;
+        this.date = date;
         this.time = time;
         this.room = room;
         this.members = members;
@@ -42,6 +47,14 @@ public class Meeting {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {
@@ -74,6 +87,7 @@ public class Meeting {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
                 ", room=" + room +
                 ", members='" + members + '\'' +
                 '}';
@@ -84,12 +98,12 @@ public class Meeting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meeting meeting = (Meeting) o;
-        return id.equals(meeting.id) && name.equals(meeting.name) && time.equals(meeting.time) && room == meeting.room && members.equals(meeting.members);
+        return id.equals(meeting.id) && name.equals(meeting.name) && time.equals(meeting.time) && date.equals(meeting.date) && room == meeting.room && members.equals(meeting.members);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, time, room, members);
+        return Objects.hash(id, name, time, date, room, members);
     }
 
     public static DiffUtil.ItemCallback<Meeting> sItemCallback = new DiffUtil.ItemCallback<Meeting>() {
