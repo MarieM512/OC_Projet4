@@ -1,5 +1,6 @@
 package com.metay.mareu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.metay.mareu.api.MeetingApiService;
 import com.metay.mareu.di.DI;
 import com.metay.mareu.events.DeleteFakeMeetingEvent;
 import com.metay.mareu.model.Meeting;
+import com.metay.mareu.ui.meeting_list.AddMeetingActivity;
 import com.metay.mareu.ui.meeting_list.MeetingListAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,8 +36,14 @@ public class MainActivity extends AppCompatActivity {
         binding.rvMeeting.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mMeetingListAdapter = new MeetingListAdapter(Meeting.sItemCallback, mMeetingApiService);
 
-        mMeetingApiService = DI.getMeetingApiService();
+        binding.addMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddMeetingActivity.navigate(MainActivity.this);
+            }
+        });
 
+        mMeetingApiService = DI.getMeetingApiService();
         initList();
     }
 
@@ -43,11 +51,6 @@ public class MainActivity extends AppCompatActivity {
         binding.rvMeeting.setAdapter(mMeetingListAdapter);
         mMeetingListAdapter.submitList(mMeetingApiService.getFakeMeeting());
     }
-
-    public void addMeeting(View view) {
-
-    }
-
 
     @Override
     public void onResume() {
@@ -69,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Fired if the user clicks on a delete button
+     *
      * @param event
      */
     @Subscribe
-    public void onDeleteMeeting (DeleteFakeMeetingEvent event) {
+    public void onDeleteMeeting(DeleteFakeMeetingEvent event) {
         mMeetingApiService.deleteFakeMeeting(event.mMeeting);
         initList();
     }
