@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MaReu" parent="ThemeOverlay.Material3">
+        <item name="android:theme">@style/ThemeOverlay.Material3.Button.ElevatedButton</item>
+    </style>
 </resources>

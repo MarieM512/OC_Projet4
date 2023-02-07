@@ -23,18 +23,18 @@ public class Meeting {
     private String date;
 
     /** Room of the meeting */
-    private Room room;
+    private String room;
 
     /** Participants of the meeting */
-    private String members;
+    private String guests;
 
-    public Meeting(String name,String date, String time, Room room, String members) {
+    public Meeting(String name,String date, String time, String room, String guests) {
         this.id = UUID.randomUUID().toString(); // Automatically generate
         this.name = name;
         this.date = date;
         this.time = time;
         this.room = room;
-        this.members = members;
+        this.guests = guests;
     }
 
     public String getId() { return id; }
@@ -65,20 +65,20 @@ public class Meeting {
         this.time = time;
     }
 
-    public Room getRoom() {
+    public String getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
+    public void setRoom(String room) {
         this.room = room;
     }
 
-    public String getMembers() {
-        return members;
+    public String getGuests() {
+        return guests;
     }
 
-    public void setMembers(String members) {
-        this.members = members;
+    public void setGuests(String guests) {
+        this.guests = guests;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Meeting {
                 ", time='" + time + '\'' +
                 ", date='" + date + '\'' +
                 ", room=" + room +
-                ", members='" + members + '\'' +
+                ", guests='" + guests + '\'' +
                 '}';
     }
 
@@ -98,12 +98,12 @@ public class Meeting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meeting meeting = (Meeting) o;
-        return id.equals(meeting.id) && name.equals(meeting.name) && time.equals(meeting.time) && date.equals(meeting.date) && room == meeting.room && members.equals(meeting.members);
+        return id.equals(meeting.id) && name.equals(meeting.name) && time.equals(meeting.time) && date.equals(meeting.date) && room == meeting.room && guests.equals(meeting.guests);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, time, date, room, members);
+        return Objects.hash(id, name, time, date, room, guests);
     }
 
     public static DiffUtil.ItemCallback<Meeting> sItemCallback = new DiffUtil.ItemCallback<Meeting>() {

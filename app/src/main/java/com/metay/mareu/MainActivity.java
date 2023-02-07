@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         initList();
     }
 
+
+
     public void initList() {
         binding.rvMeeting.setAdapter(mMeetingListAdapter);
         mMeetingListAdapter.submitList(mMeetingApiService.getFakeMeeting());

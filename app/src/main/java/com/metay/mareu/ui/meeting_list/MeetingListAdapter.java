@@ -55,7 +55,7 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
         public void bind(Meeting meeting) {
             String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
             this.meeting.setText(title);
-            members.setText(meeting.getMembers());
+            members.setText(meeting.getGuests());
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
