@@ -1,24 +1,25 @@
 package com.metay.mareu;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.example.projet4.databinding.ActivityMainBinding;
 import com.metay.mareu.api.MeetingApiService;
 import com.metay.mareu.di.DI;
 import com.metay.mareu.events.DeleteFakeMeetingEvent;
+import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
 import com.metay.mareu.ui.meeting_list.AddMeetingActivity;
 import com.metay.mareu.ui.meeting_list.MeetingListAdapter;
+import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private MeetingListAdapter mMeetingListAdapter;
     private MeetingApiService mMeetingApiService;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +46,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mMeetingApiService = DI.getMeetingApiService();
-        initList();
-    }
-
-
-
-    public void initList() {
         binding.rvMeeting.setAdapter(mMeetingListAdapter);
-        mMeetingListAdapter.submitList(mMeetingApiService.getFakeMeeting());
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initList();
+        MainViewModel model = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(MainViewModel.class);
+
+        model.getMeetingList().observe(this, mLiveData -> {
+            mMeetingListAdapter.submitList(mLiveData);
+            mMeetingListAdapter.notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -79,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Subscribe
     public void onDeleteMeeting(DeleteFakeMeetingEvent event) {
-        mMeetingApiService.deleteFakeMeeting(event.mMeeting);
-        initList();
+        mMeetingApiService.deleteMeeting(event.mMeeting);
     }
 }

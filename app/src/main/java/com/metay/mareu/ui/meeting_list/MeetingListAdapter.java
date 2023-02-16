@@ -60,9 +60,9 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
                 @Override
                 public void onClick(View v) {
                     EventBus.getDefault().post(new DeleteFakeMeetingEvent(meeting));
+                    // mMeetingApiService.deleteMeeting(meeting);
                 }
             });
         }
     }
-
 }

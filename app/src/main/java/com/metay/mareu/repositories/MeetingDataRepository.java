@@ -1,6 +1,7 @@
 package com.metay.mareu.repositories;
 
 
+import static com.metay.mareu.api.FakeMeetingApiServiceGenerator.generateFakeMeetings;
 import static com.metay.mareu.api.FakeMeetingApiServiceGenerator.generateMeetings;
 
 import com.metay.mareu.api.MeetingApiService;
@@ -11,8 +12,17 @@ import java.util.List;
 
 public class MeetingDataRepository implements MeetingApiService {
 
-    private List<Meeting> mMeetingList = generateMeetings();
-    private ArrayList<Meeting> mMeetings = new ArrayList<>();
+    private List<Meeting> mMeetingList = generateFakeMeetings();
+    private ArrayList<Meeting> mMeetings = generateMeetings();
+
+    private static MeetingDataRepository instance;
+
+    public static MeetingDataRepository getInstance() {
+        if (instance == null) {
+            instance = new MeetingDataRepository();
+        }
+        return instance;
+    }
 
     @Override
     public List<Meeting> getFakeMeeting() {
@@ -30,7 +40,7 @@ public class MeetingDataRepository implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getMeeting() {
+    public ArrayList<Meeting> getMeeting() {
         return mMeetings;
     }
 
