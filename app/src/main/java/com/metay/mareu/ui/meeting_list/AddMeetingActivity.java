@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -14,8 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.projet4.R;
 import com.example.projet4.databinding.ActivityAddMeetingBinding;
 import com.metay.mareu.MainActivity;
-import com.metay.mareu.api.MeetingApiService;
-import com.metay.mareu.di.DI;
 import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
 import com.metay.mareu.model.Room;
@@ -27,8 +26,6 @@ import java.util.Arrays;
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
-    private MeetingApiService mApiService;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +33,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        mApiService = DI.getMeetingApiService();
-
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.input_room);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<Room>(Arrays.asList(Room.values())));
         autoCompleteTextView.setAdapter(adapter);
+
+        autoCompleteTextView.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (0 <= position && position <= 9) {
+                    binding.ivRoom.setImageResource(Room.values()[position].getImage());
+                }
+            }
+        });
 
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,7 +26,8 @@ public class MainViewModel extends ViewModel {
     }
 
     public void deleteMeeting(Meeting meeting) {
-        mDataRepository.deleteFakeMeeting(meeting);
+        mDataRepository.deleteMeeting(meeting);
+        mLiveData.setValue(mMeetingArrayList);
     }
 
     public void addMeeting(Meeting meeting) {

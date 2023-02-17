@@ -12,17 +12,8 @@ import java.util.List;
 
 public class MeetingDataRepository implements MeetingApiService {
 
-    private List<Meeting> mMeetingList = generateFakeMeetings();
-    private ArrayList<Meeting> mMeetings = generateMeetings();
-
-    private static MeetingDataRepository instance;
-
-    public static MeetingDataRepository getInstance() {
-        if (instance == null) {
-            instance = new MeetingDataRepository();
-        }
-        return instance;
-    }
+    private final List<Meeting> mMeetingList = generateFakeMeetings();
+    private final ArrayList<Meeting> mMeetings = generateMeetings();
 
     @Override
     public List<Meeting> getFakeMeeting() {

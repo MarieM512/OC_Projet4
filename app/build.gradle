@@ -42,9 +42,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
 
-    // EVENT BUS
-    implementation 'org.greenrobot:eventbus:3.1.1'
-
     // RECYCLE VIEW
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 

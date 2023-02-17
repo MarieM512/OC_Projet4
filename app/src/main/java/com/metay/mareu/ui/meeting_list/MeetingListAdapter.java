@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet4.R;
 import com.metay.mareu.api.MeetingApiService;
-import com.metay.mareu.events.DeleteFakeMeetingEvent;
 import com.metay.mareu.model.Meeting;
-
-import org.greenrobot.eventbus.EventBus;
+import com.metay.mareu.model.Room;
 
 public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.MeetingViewHolder> {
 
     MeetingApiService mMeetingApiService;
+    MeetingInterface mMeetingInterface;
 
-    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingApiService meetingApiService) {
+    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingApiService meetingApiService, MeetingInterface meetingInterface) {
         super(diffCallback);
         this.mMeetingApiService = meetingApiService;
+        this.mMeetingInterface = meetingInterface;
     }
 
     @NonNull
@@ -44,12 +45,14 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
         TextView meeting;
         TextView members;
         ImageButton deleteButton;
+        ImageView room;
 
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
             meeting = itemView.findViewById(R.id.item_name);
             members = itemView.findViewById(R.id.item_members);
             deleteButton = itemView.findViewById(R.id.item_delete_button);
+            room = itemView.findViewById(R.id.item_image);
         }
 
         public void bind(Meeting meeting) {
@@ -59,8 +62,7 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new DeleteFakeMeetingEvent(meeting));
-                    // mMeetingApiService.deleteMeeting(meeting);
+                    mMeetingInterface.removeMeeting(meeting);
                 }
             });
         }
