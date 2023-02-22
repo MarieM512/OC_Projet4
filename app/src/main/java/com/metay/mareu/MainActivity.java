@@ -18,7 +18,6 @@ import com.metay.mareu.ui.meeting_list.MeetingListAdapter;
 import com.metay.mareu.ui.meeting_list.MeetingInterface;
 import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
-
 public class MainActivity extends AppCompatActivity implements MeetingInterface {
 
     private ActivityMainBinding binding;
