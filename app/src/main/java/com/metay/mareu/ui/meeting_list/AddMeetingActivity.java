@@ -1,14 +1,20 @@
 package com.metay.mareu.ui.meeting_list;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet4.R;
 import com.example.projet4.databinding.ActivityAddMeetingBinding;
-import com.google.android.material.datepicker.MaterialDatePicker;
 import com.metay.mareu.MainActivity;
 import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
@@ -28,11 +33,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Timer;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
     final Calendar myCalendar= Calendar.getInstance();
+    TimePickerDialog mTimePickerDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        binding.inputTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePickerDialog();
+            }
+        });
 
         MainViewModel model = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(MainViewModel.class);
 
@@ -102,6 +115,20 @@ public class AddMeetingActivity extends AppCompatActivity {
         String myFormat="dd/MM/yy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.FRANCE);
         binding.inputDate.setText(dateFormat.format(myCalendar.getTime()));
+    }
+
+    private void timePickerDialog() {
+        mTimePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                binding.inputTime.setText(hourOfDay + "h" + minute);
+            }
+        }, myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), true);
+
+        mTimePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mTimePickerDialog.setTitle("Select a time");
+        mTimePickerDialog.show();
     }
 
     /**
