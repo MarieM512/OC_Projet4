@@ -4,21 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context="com.metay.mareu.ui.meeting_list.AddMeetingActivity">
 
-    <GridLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/blue_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.circularreveal.CircularRevealGridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_margin="16dp"
         android:columnCount="2"
         android:rowCount="4">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_name"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_create_24"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_columnSpan="2"
@@ -30,15 +46,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="phone"
-                android:hint="Meeting name"
-                android:inputType="text" />
+                android:hint="@string/meeting_name"
+                android:inputType="text"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_date"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
             android:layout_row="1"
             android:layout_column="0"
             android:layout_columnWeight="2"
@@ -46,19 +65,22 @@
             android:paddingVertical="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:focusable="false"
                 android:id="@+id/input_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date"
-                android:inputType="date" />
+                android:focusable="false"
+                android:hint="@string/date"
+                android:inputType="date"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_time"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_access_time_24"
             android:layout_row="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
@@ -67,36 +89,41 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_time"
-                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Time"
-                android:inputType="time" />
+                android:focusable="false"
+                android:hint="@string/time"
+                android:inputType="time"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_room"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_meeting_room_24"
             android:layout_row="2"
             android:layout_column="0"
             android:layout_columnWeight="2"
             android:layout_gravity="center_vertical"
             android:paddingVertical="8dp">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/input_room"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Room"
-                android:inputType="none" />
+                android:hint="@string/room"
+                android:inputType="none"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/iv_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_s_room"
             android:layout_row="2"
             android:layout_column="1"
             android:layout_columnWeight="1"
@@ -104,9 +131,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_guests"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
             android:layout_row="3"
             android:layout_column="0"
             android:layout_columnSpan="2"
@@ -117,17 +146,19 @@
                 android:id="@+id/input_guests"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Guests"
-                android:inputType="textEmailAddress" />
+                android:hint="@string/guests"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
-    </GridLayout>
+    </com.google.android.material.circularreveal.CircularRevealGridLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cancel"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="@string/cancel"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -135,7 +166,8 @@
         android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
+        android:text="@string/create"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

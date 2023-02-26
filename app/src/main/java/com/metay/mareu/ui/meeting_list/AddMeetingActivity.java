@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -40,33 +41,31 @@ public class AddMeetingActivity extends AppCompatActivity {
     private ActivityAddMeetingBinding binding;
     final Calendar myCalendar= Calendar.getInstance();
     TimePickerDialog mTimePickerDialog;
+    Room currentRoom;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        MainViewModel model = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(MainViewModel.class);
 
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.input_room);
+        setSupportActionBar(binding.toolbar);
+
+        // Room
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<Room>(Arrays.asList(Room.values())));
-        autoCompleteTextView.setAdapter(adapter);
-
-        autoCompleteTextView.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+        binding.inputRoom.setAdapter(adapter);
+        binding.inputRoom.setOnItemClickListener (new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (0 <= position && position <= 9) {
                     binding.ivRoom.setImageResource(Room.values()[position].getImage());
+                    currentRoom = Room.values()[position];
                 }
             }
         });
 
-        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
+        // Date
         DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -76,7 +75,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
-
         binding.inputDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +82,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        // Time
         binding.inputTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,22 +90,75 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-        MainViewModel model = new ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(MainViewModel.class);
+        // Btn Cancel
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+        // Btn Create
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Meeting meeting = new Meeting(
-                        binding.inputName.getText().toString(),
-                        binding.inputDate.getText().toString(),
-                        binding.inputTime.getText().toString(),
-                        binding.inputRoom.getText().toString(),
-                        binding.inputGuests.getText().toString()
-                );
-                model.addMeeting(meeting);
+                Integer error = 0;
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                // Name
+                if (binding.inputName.getText().toString().equals("")) {
+                    binding.layoutName.setError("Put a name meeting");
+                    error++;
+                } else {
+                    binding.layoutName.setError(null);
+                }
+
+                // Date
+                if (binding.inputDate.getText().toString().equals("")) {
+                    binding.layoutDate.setError("Pick a date");
+                    error++;
+                } else {
+                    binding.layoutDate.setError(null);
+                }
+
+                // Time
+                if (binding.inputTime.getText().toString().equals("")) {
+                    binding.layoutTime.setError("Select a time");
+                    error++;
+                } else {
+                    binding.layoutTime.setError(null);
+                }
+
+                // Room
+                if (binding.inputRoom.getText().toString().equals("")) {
+                    binding.layoutRoom.setError("Chose a room");
+                    error++;
+                } else {
+                    binding.layoutRoom.setError(null);
+                }
+
+                // Guests
+                if (binding.inputGuests.getText().toString().equals("")) {
+                    binding.layoutGuests.setError("Only you ?");
+                    error++;
+                } else {
+                    binding.layoutGuests.setError(null);
+                }
+                
+                if (error == 0) {
+                    Meeting meeting = new Meeting(
+                            binding.inputName.getText().toString(),
+                            binding.inputDate.getText().toString(),
+                            binding.inputTime.getText().toString(),
+                            currentRoom,
+                            binding.inputGuests.getText().toString()
+                    );
+                    model.addMeeting(meeting);
+    
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(AddMeetingActivity.this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -118,11 +170,17 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void timePickerDialog() {
-        mTimePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
+        mTimePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo, new TimePickerDialog.OnTimeSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                binding.inputTime.setText(hourOfDay + "h" + minute);
+                String min;
+                if (minute < 10) {
+                    min = "0" + minute;
+                } else {
+                    min = String.valueOf(minute);
+                }
+                binding.inputTime.setText(hourOfDay + "h" + min);
             }
         }, myCalendar.get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), true);
 

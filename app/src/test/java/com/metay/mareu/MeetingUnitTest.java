@@ -30,21 +30,21 @@ public class MeetingUnitTest {
     }
 
     @Test
-    public void fakeMeeting_isSave() {
+    public void fakeMeeting_isSave() { // Change
         List<Meeting> meetings = mMeetingApiService.getFakeMeeting();
         List<Meeting> expectedMeeting = FakeMeetingApiServiceGenerator.FAKE_MEETINGS;
         assertThat(meetings, (IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeeting.toArray())));
     }
 
     @Test
-    public void addFakeMeeting() {
+    public void addFakeMeeting() { // Change
         Meeting meetingToAdd = mMeetingApiService.getFakeMeeting().get(0);
         mMeetingApiService.createMeeting(meetingToAdd);
         assertTrue(mMeetingApiService.getMeeting().contains(meetingToAdd));
     }
 
     @Test
-    public void removeFakeMeeting() {
+    public void removeFakeMeeting() { // Change
         Meeting meetingToAdd = mMeetingApiService.getFakeMeeting().get(0);
         mMeetingApiService.createMeeting(meetingToAdd);
         Meeting meetingToDelete = mMeetingApiService.getMeeting().get(0);

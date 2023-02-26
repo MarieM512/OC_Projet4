@@ -19,12 +19,10 @@ import com.metay.mareu.model.Room;
 
 public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.MeetingViewHolder> {
 
-    MeetingApiService mMeetingApiService;
     MeetingInterface mMeetingInterface;
 
-    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingApiService meetingApiService, MeetingInterface meetingInterface) {
+    public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingInterface meetingInterface) {
         super(diffCallback);
-        this.mMeetingApiService = meetingApiService;
         this.mMeetingInterface = meetingInterface;
     }
 
@@ -59,6 +57,7 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
             String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
             this.meeting.setText(title);
             members.setText(meeting.getGuests());
+            room.setImageResource(meeting.getImgRoom());
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

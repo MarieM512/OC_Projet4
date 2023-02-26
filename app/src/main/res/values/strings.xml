@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Ma réu</string>
+    <string name="meeting_name">Meeting name</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="room">Room</string>
+    <string name="guests">Guests</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="icon_s_room">Icon\'s room</string>
 </resources>

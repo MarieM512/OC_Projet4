@@ -3,6 +3,8 @@ package com.metay.mareu.model;
 
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
+
 import com.example.projet4.R;
 
 public enum Room {
@@ -25,9 +27,17 @@ public enum Room {
         this.image = drawableId;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return room;
+    }
+
     public int getImage(){
         return image;
     }
 
     public String getRoom() { return room; }
+
+
 }

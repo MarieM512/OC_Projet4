@@ -1,6 +1,6 @@
 package com.metay.mareu.di;
 
-import com.metay.mareu.repositories.MeetingDataRepository;
+import com.metay.mareu.api.MeetingDataApiService;
 import com.metay.mareu.api.MeetingApiService;
 
 /**
@@ -8,7 +8,7 @@ import com.metay.mareu.api.MeetingApiService;
  */
 public class DI {
 
-    private static MeetingApiService service = new MeetingDataRepository();
+    private static MeetingApiService service = new MeetingDataApiService();
 
     /**
      * Get an instance on @{@link MeetingApiService}
@@ -23,6 +23,6 @@ public class DI {
      * @return
      */
     public static MeetingApiService getNewInstanceApiService() {
-        return new MeetingDataRepository();
+        return new MeetingDataApiService();
     }
 }

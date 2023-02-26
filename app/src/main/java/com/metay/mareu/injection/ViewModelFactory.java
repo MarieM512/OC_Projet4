@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.metay.mareu.repositories.MeetingDataRepository;
+import com.metay.mareu.api.MeetingDataApiService;
+import com.metay.mareu.di.DI;
+import com.metay.mareu.repositories.MeetingRepository;
 import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
-    private final MeetingDataRepository mMeetingDataRepository;
+    private final MeetingRepository mMeetingRepository;
 
     private static ViewModelFactory factory;
 
@@ -27,14 +29,14 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     }
 
     public ViewModelFactory(Context context) {
-        this.mMeetingDataRepository = new MeetingDataRepository();
+        this.mMeetingRepository = new MeetingRepository(DI.getMeetingApiService());
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(mMeetingDataRepository);
+            return (T) new MainViewModel(mMeetingRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

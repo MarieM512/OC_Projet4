@@ -23,12 +23,12 @@ public class Meeting {
     private String date;
 
     /** Room of the meeting */
-    private String room;
+    private Room room;
 
     /** Participants of the meeting */
     private String guests;
 
-    public Meeting(String name,String date, String time, String room, String guests) {
+    public Meeting(String name,String date, String time, Room room, String guests) {
         this.id = UUID.randomUUID().toString(); // Automatically generate
         this.name = name;
         this.date = date;
@@ -66,11 +66,15 @@ public class Meeting {
     }
 
     public String getRoom() {
-        return room;
+        return room.getRoom();
     }
 
-    public void setRoom(String room) {
+    public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public Integer getImgRoom() {
+        return room.getImage();
     }
 
     public String getGuests() {
