@@ -14,4 +14,10 @@
         app:showAsAction="never">
     </item>
 
+    <item
+        android:id="@+id/filter_clear"
+        android:title="Clear all filter"
+        app:showAsAction="never">
+    </item>
+
 </menu>

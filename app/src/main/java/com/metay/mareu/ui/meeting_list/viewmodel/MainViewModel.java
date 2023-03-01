@@ -4,10 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.metay.mareu.model.Meeting;
-import com.metay.mareu.api.MeetingDataApiService;
 import com.metay.mareu.repositories.MeetingRepository;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MainViewModel extends ViewModel {
 
@@ -34,5 +35,15 @@ public class MainViewModel extends ViewModel {
     public void addMeeting(Meeting meeting) {
         mDataRepository.createMeeting(meeting);
         mLiveData.setValue(mMeetingArrayList);
+    }
+
+    public void dateFilter(String date) {
+        ArrayList<Meeting> dateFilterList = new ArrayList<>();
+        for (Meeting meeting : mMeetingArrayList) {
+            if (Objects.equals(meeting.getDate(), date)) {
+                dateFilterList.add(meeting);
+            }
+        }
+        mLiveData.setValue(dateFilterList);
     }
 }

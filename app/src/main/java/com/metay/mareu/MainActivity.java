@@ -27,8 +27,11 @@ import com.metay.mareu.ui.meeting_list.MeetingInterface;
 import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements MeetingInterface {
 
@@ -36,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
     private MeetingListAdapter mMeetingListAdapter;
     private MainViewModel model;
     final Calendar myCalendar= Calendar.getInstance();
+
+    // Date
+    String myFormat = "dd/MM/yy";
+    SimpleDateFormat dateFormat = null;
+    String dateSelected = "";
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -87,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH,month);
                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                updateLabel();
+                dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
+                dateSelected = dateFormat.format(myCalendar.getTime());
+                Toast.makeText(getApplicationContext(), dateSelected, Toast.LENGTH_SHORT).show();
+                model.dateFilter(dateSelected);
             }
         };
 
@@ -98,14 +109,11 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
             case R.id.filter_room:
                 Log.d("test", "room");
                 break;
+            case R.id.filter_clear:
+                model.getMeetingList();
+                Toast.makeText(this, "All filter are removed", Toast.LENGTH_SHORT).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateLabel(){
-        String myFormat="dd/MM/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.FRANCE);
-        String dateSelected = dateFormat.format(myCalendar.getTime());
-        Toast.makeText(getApplicationContext(), dateSelected, Toast.LENGTH_SHORT).show();
     }
 }
