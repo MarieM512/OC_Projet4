@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.metay.mareu.model.Meeting;
+import com.metay.mareu.model.Room;
 import com.metay.mareu.repositories.MeetingRepository;
 
 import java.util.ArrayList;
@@ -39,11 +40,21 @@ public class MainViewModel extends ViewModel {
 
     public void dateFilter(String date) {
         ArrayList<Meeting> dateFilterList = new ArrayList<>();
-        for (Meeting meeting : mMeetingArrayList) {
+        for (Meeting meeting : Objects.requireNonNull(mLiveData.getValue())) {
             if (Objects.equals(meeting.getDate(), date)) {
                 dateFilterList.add(meeting);
             }
         }
         mLiveData.setValue(dateFilterList);
+    }
+
+    public void roomFilter(String room) {
+        ArrayList<Meeting> roomFilterList = new ArrayList<>();
+        for (Meeting meeting : Objects.requireNonNull(mLiveData.getValue())) {
+            if (Objects.equals(meeting.getRoom(), room)) {
+                roomFilterList.add(meeting);
+            }
+        }
+        mLiveData.setValue(roomFilterList);
     }
 }

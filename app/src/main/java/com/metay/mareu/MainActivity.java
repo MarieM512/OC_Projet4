@@ -7,43 +7,50 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.example.projet4.R;
 import com.example.projet4.databinding.ActivityMainBinding;
-import com.metay.mareu.api.MeetingApiService;
-import com.metay.mareu.di.DI;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
+import com.metay.mareu.model.Room;
 import com.metay.mareu.ui.meeting_list.AddMeetingActivity;
+import com.metay.mareu.ui.meeting_list.CustomGridAdapter;
 import com.metay.mareu.ui.meeting_list.MeetingListAdapter;
 import com.metay.mareu.ui.meeting_list.MeetingInterface;
 import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements MeetingInterface {
 
     private ActivityMainBinding binding;
     private MeetingListAdapter mMeetingListAdapter;
     private MainViewModel model;
-    final Calendar myCalendar= Calendar.getInstance();
+    final Calendar myCalendar = Calendar.getInstance();
 
     // Date
     String myFormat = "dd/MM/yy";
     SimpleDateFormat dateFormat = null;
     String dateSelected = "";
+
+    // Room
+    MaterialAlertDialogBuilder roomDialog;
+    AlertDialog mAlertDialog;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -73,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
             mMeetingListAdapter.submitList(mLiveData);
             mMeetingListAdapter.notifyDataSetChanged();
         });
+
+        roomDialog = new MaterialAlertDialogBuilder(MainActivity.this);
     }
 
     @Override
@@ -89,12 +98,12 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH,month);
-                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, day);
                 dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
                 dateSelected = dateFormat.format(myCalendar.getTime());
                 Toast.makeText(getApplicationContext(), dateSelected, Toast.LENGTH_SHORT).show();
@@ -104,10 +113,10 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
 
         switch (item.getItemId()) {
             case R.id.filter_date:
-                new DatePickerDialog(this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.filter_room:
-                Log.d("test", "room");
+                RoomFilterAlertDialog();
                 break;
             case R.id.filter_clear:
                 model.getMeetingList();
@@ -115,5 +124,28 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void RoomFilterAlertDialog() {
+        GridView gridView = new GridView(this);
+        ArrayList<Room> mList = new ArrayList<>(Arrays.asList(Room.values()));
+        gridView.setAdapter(new CustomGridAdapter(this, R.layout.dialog_room_filter_item, mList));
+        gridView.setHorizontalSpacing(8);
+        gridView.setVerticalSpacing(8);
+        gridView.setNumColumns(3);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                model.roomFilter(mList.get(position).getRoom());
+                mAlertDialog.dismiss();
+            }
+        });
+
+        roomDialog
+                .setTitle("Room filter")
+                .setView(gridView)
+                .setIcon(R.drawable.ic_baseline_meeting_room_24);
+        mAlertDialog = roomDialog.create();
+        mAlertDialog.show();
     }
 }
