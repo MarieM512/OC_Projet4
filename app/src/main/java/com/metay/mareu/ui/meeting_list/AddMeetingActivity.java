@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,8 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.projet4.R;
 import com.example.projet4.databinding.ActivityAddMeetingBinding;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.metay.mareu.MainActivity;
 import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
@@ -34,12 +33,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Timer;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
-    final Calendar myCalendar= Calendar.getInstance();
+    final Calendar myCalendar = Calendar.getInstance();
     TimePickerDialog mTimePickerDialog;
     Room currentRoom;
 
@@ -55,7 +53,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         // Room
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<Room>(Arrays.asList(Room.values())));
         binding.inputRoom.setAdapter(adapter);
-        binding.inputRoom.setOnItemClickListener (new AdapterView.OnItemClickListener() {
+        binding.inputRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (0 <= position && position <= 9) {
@@ -66,19 +64,19 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
         // Date
-        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH,month);
-                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, day);
                 updateLabel();
             }
         };
         binding.inputDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(AddMeetingActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(AddMeetingActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -144,7 +142,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 } else {
                     binding.layoutGuests.setError(null);
                 }
-                
+
                 if (error == 0) {
                     Meeting meeting = new Meeting(
                             binding.inputName.getText().toString(),
@@ -154,7 +152,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                             binding.inputGuests.getText().toString()
                     );
                     model.addMeeting(meeting);
-    
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -164,9 +162,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void updateLabel(){
-        String myFormat="dd/MM/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.FRANCE);
+    private void updateLabel() {
+        String myFormat = "dd/MM/yy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
         binding.inputDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projet4.R;
+import com.example.projet4.databinding.DialogRoomFilterItemBinding;
 import com.metay.mareu.model.Room;
 
 import java.util.ArrayList;
@@ -34,15 +35,12 @@ public class CustomGridAdapter extends ArrayAdapter<Room> {
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.dialog_room_filter_item, null);
+        DialogRoomFilterItemBinding binding;
+        binding = DialogRoomFilterItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        ImageView imageView = convertView.findViewById(R.id.iv_filter_room);
-        TextView textView = convertView.findViewById(R.id.tv_filter_room);
+        binding.ivFilterRoom.setImageResource(mRoomArrayList.get(position).getImage());
+        binding.tvFilterRoom.setText(mRoomArrayList.get(position).getRoom());
 
-        imageView.setImageResource(mRoomArrayList.get(position).getImage());
-        textView.setText(mRoomArrayList.get(position).getRoom());
-
-        return convertView;
+        return binding.getRoot();
     }
 }

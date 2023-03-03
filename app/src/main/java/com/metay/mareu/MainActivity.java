@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 model.roomFilter(mList.get(position).getRoom());
-                Toast.makeText(MainActivity.this, mList.get(position).getRoom(), Toast.LENGTH_SHORT).show();
                 mAlertDialog.dismiss();
             }
         });
