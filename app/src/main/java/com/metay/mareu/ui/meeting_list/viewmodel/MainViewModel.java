@@ -40,7 +40,7 @@ public class MainViewModel extends ViewModel {
 
     public void dateFilter(String date) {
         ArrayList<Meeting> dateFilterList = new ArrayList<>();
-        for (Meeting meeting : Objects.requireNonNull(mLiveData.getValue())) {
+        for (Meeting meeting : Objects.requireNonNull(mMeetingArrayList)) {
             if (Objects.equals(meeting.getDate(), date)) {
                 dateFilterList.add(meeting);
             }
@@ -50,7 +50,7 @@ public class MainViewModel extends ViewModel {
 
     public void roomFilter(String room) {
         ArrayList<Meeting> roomFilterList = new ArrayList<>();
-        for (Meeting meeting : Objects.requireNonNull(mLiveData.getValue())) {
+        for (Meeting meeting : Objects.requireNonNull(mMeetingArrayList)) {
             if (Objects.equals(meeting.getRoom(), room)) {
                 roomFilterList.add(meeting);
             }

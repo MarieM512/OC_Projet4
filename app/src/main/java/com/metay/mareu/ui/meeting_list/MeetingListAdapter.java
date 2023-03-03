@@ -15,7 +15,6 @@ import com.metay.mareu.model.Meeting;
 public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.MeetingViewHolder> {
 
     MeetingInterface mMeetingInterface;
-    ItemRecycleviewBinding binding;
 
     public MeetingListAdapter(@NonNull DiffUtil.ItemCallback<Meeting> diffCallback, MeetingInterface meetingInterface) {
         super(diffCallback);
@@ -31,23 +30,29 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
         Meeting meeting = getItem(position);
-        String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
-        binding.itemName.setText(title);
-        binding.itemMembers.setText(meeting.getGuests());
-        binding.itemImage.setImageResource(meeting.getImgRoom());
-        binding.itemDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMeetingInterface.removeMeeting(meeting);
-            }
-        });
+        holder.bind(meeting);
     }
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {
 
+        ItemRecycleviewBinding binding;
+
         public MeetingViewHolder(ItemRecycleviewBinding b) {
             super(b.getRoot());
             binding = b;
+        }
+
+        public void bind(Meeting meeting) {
+            String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
+            binding.itemName.setText(title);
+            binding.itemMembers.setText(meeting.getGuests());
+            binding.itemImage.setImageResource(meeting.getImgRoom());
+            binding.itemDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mMeetingInterface.removeMeeting(meeting);
+                }
+            });
         }
     }
 }
