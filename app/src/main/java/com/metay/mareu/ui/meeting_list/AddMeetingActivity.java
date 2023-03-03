@@ -139,6 +139,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 // Guests
                 if (binding.inputGuests.getText().toString().equals("")) {
                     binding.layoutGuests.setError("Only you ?");
+                    binding.scrollView.scrollTo(0, binding.scrollView.getBottom());
                     error++;
                 } else {
                     binding.layoutGuests.setError(null);
