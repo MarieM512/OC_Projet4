@@ -35,6 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Activity to add a new meeting
+ */
 public class AddMeetingActivity extends AppCompatActivity {
 
     private ActivityAddMeetingBinding binding;
@@ -195,6 +198,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Display a time picker for filter the meeting list
+     */
     private void timePickerDialog() {
         mTimePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo, new TimePickerDialog.OnTimeSetListener() {
             @SuppressLint("SetTextI18n")
@@ -217,6 +223,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         mTimePickerDialog.show();
     }
 
+    /**
+     * Used to check if email input is valid
+     *
+     * @param email
+     */
     private void emailValidator(EditText email) {
         String emailToString = email.getText().toString();
         if (!emailToString.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailToString).matches()) {

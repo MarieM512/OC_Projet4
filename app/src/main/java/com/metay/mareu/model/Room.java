@@ -1,14 +1,14 @@
 package com.metay.mareu.model;
 
-
-import android.graphics.drawable.Drawable;
-
 import androidx.annotation.NonNull;
 
 import com.example.projet4.R;
 
+/**
+ * Model of Room
+ */
 public enum Room {
-    MARIO("Mario",R.drawable.ic_mario),
+    MARIO("Mario", R.drawable.ic_mario),
     LUIGI("Luigi", R.drawable.ic_luigi),
     PEACH("Peach", R.drawable.ic_peach),
     TOAD("Toad", R.drawable.ic_toad),
@@ -33,11 +33,23 @@ public enum Room {
         return room;
     }
 
-    public int getImage(){
+    /**
+     * Get room image
+     *
+     * @return
+     */
+    public int getImage() {
         return image;
     }
 
-    public String getRoom() { return room; }
+    /**
+     * Get room name
+     *
+     * @return
+     */
+    public String getRoom() {
+        return room;
+    }
 
 
 }

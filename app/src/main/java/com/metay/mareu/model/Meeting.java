@@ -1,34 +1,47 @@
 package com.metay.mareu.model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Model of Meeting
+ */
 public class Meeting {
 
-    /** ID of the meeting */
+    /**
+     * ID of the meeting
+     */
     private String id;
 
-    /** Name of the meeting */
+    /**
+     * Name of the meeting
+     */
     private String name;
 
-    /** Time of the meeting */
+    /**
+     * Time of the meeting
+     */
     private String time;
 
-    /** Day of the meeting */
+    /**
+     * Day of the meeting
+     */
     private String date;
 
-    /** Room of the meeting */
+    /**
+     * Room of the meeting
+     */
     private Room room;
 
-    /** Participants of the meeting */
+    /**
+     * Participants of the meeting
+     */
     private String guests;
 
-    public Meeting(String name,String date, String time, Room room, String guests) {
+    public Meeting(String name, String date, String time, Room room, String guests) {
         this.id = UUID.randomUUID().toString(); // Automatically generate
         this.name = name;
         this.date = date;
@@ -37,50 +50,119 @@ public class Meeting {
         this.guests = guests;
     }
 
-    public String getId() { return id; }
+    /**
+     * Get the ID of the meeting
+     *
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
 
-    public void setId(String id) { this.id = id; }
+    /**
+     * Set the ID of the meeting
+     *
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    /**
+     * Get the name of the meeting
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name of the meeting
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the date of the meeting
+     *
+     * @return
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Set the date of the meeting
+     *
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * Get the time of the meeting
+     *
+     * @return
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * Set the time of the meeting
+     *
+     * @param time
+     */
     public void setTime(String time) {
         this.time = time;
     }
 
+    /**
+     * Get the room name of the meeting
+     *
+     * @return
+     */
     public String getRoom() {
         return room.getRoom();
     }
 
+    /**
+     * Set the room name of the meeting
+     *
+     * @param room
+     */
     public void setRoom(Room room) {
         this.room = room;
     }
 
+    /**
+     * Get the room image of the meeting
+     *
+     * @return
+     */
     public Integer getImgRoom() {
         return room.getImage();
     }
 
+    /**
+     * Get the participants of the meeting
+     *
+     * @return
+     */
     public String getGuests() {
         return guests;
     }
 
+    /**
+     * Set the participants of the meeting
+     *
+     * @param guests
+     */
     public void setGuests(String guests) {
         this.guests = guests;
     }

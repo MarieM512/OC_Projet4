@@ -35,6 +35,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * Activity to display meeting list
+ */
 public class MainActivity extends AppCompatActivity implements MeetingInterface {
 
     private ActivityMainBinding binding;
@@ -127,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Display an alert dialog for select a room filter
+     */
     private void RoomFilterAlertDialog() {
         GridView gridView = new GridView(this);
         ArrayList<Room> mList = new ArrayList<>(Arrays.asList(Room.values()));

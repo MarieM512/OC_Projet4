@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projet4.databinding.ItemRecycleviewBinding;
 import com.metay.mareu.model.Meeting;
 
+/**
+ * Adapter to recycler view in {@link com.metay.mareu.MainActivity}
+ */
 public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.MeetingViewHolder> {
 
     MeetingInterface mMeetingInterface;
@@ -42,6 +45,11 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
             binding = b;
         }
 
+        /**
+         * Bind data in the recycler view
+         *
+         * @param meeting
+         */
         public void bind(Meeting meeting) {
             String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();
             binding.itemName.setText(title);

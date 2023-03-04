@@ -6,17 +6,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.metay.mareu.api.MeetingDataApiService;
 import com.metay.mareu.di.DI;
 import com.metay.mareu.repositories.MeetingRepository;
 import com.metay.mareu.ui.meeting_list.viewmodel.MainViewModel;
 
+/**
+ * ViewModelFactory to link {@link MainViewModel} with {@link MeetingRepository}
+ */
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private final MeetingRepository mMeetingRepository;
 
     private static ViewModelFactory factory;
 
+    /**
+     * Get a new instance on {@link ViewModelFactory}. Useful for tests, so we ensure the context is clean.
+     *
+     * @return
+     */
     public static ViewModelFactory getInstance(Context context) {
         if (factory == null) {
             synchronized (ViewModelFactory.class) {
