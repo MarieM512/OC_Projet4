@@ -5,9 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvRoom"
+        android:contentDescription="@string/room"
         android:layout_width="100dp"
         android:layout_height="125dp"
         android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,9 +31,12 @@
 
             <TextView
                 android:id="@+id/tv_filter_room"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="16sp"
                 android:text="Mario"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

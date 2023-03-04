@@ -61,6 +61,11 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
                     mMeetingInterface.removeMeeting(meeting);
                 }
             });
+
+            binding.itemName.setContentDescription(meeting.getName());
+            binding.itemImage.setContentDescription("Image of" + meeting.getRoom());
+            binding.itemMembers.setContentDescription(meeting.getGuests());
+            binding.itemDeleteButton.setContentDescription("Delete" + meeting.getName());
         }
     }
 }

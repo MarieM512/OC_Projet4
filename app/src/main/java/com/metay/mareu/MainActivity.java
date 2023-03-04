@@ -2,18 +2,24 @@ package com.metay.mareu;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
     MaterialAlertDialogBuilder roomDialog;
     AlertDialog mAlertDialog;
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -99,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {

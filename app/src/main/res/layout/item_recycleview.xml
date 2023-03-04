@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_meeting"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
     <ImageView
+        android:contentDescription="@string/room_image"
         android:id="@+id/item_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -22,6 +22,7 @@
 
 
         <TextView
+            android:contentDescription="@string/meeting_information"
             android:id="@+id/item_name"
             android:text="Onboarding"
             android:layout_width="0dp"
@@ -36,6 +37,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:contentDescription="@string/participants_of_the_meeting"
             android:id="@+id/item_members"
             android:ellipsize="end"
             android:maxLines="1"
@@ -50,6 +52,7 @@
 
 
     <ImageButton
+        android:contentDescription="@string/delete"
         android:id="@+id/item_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

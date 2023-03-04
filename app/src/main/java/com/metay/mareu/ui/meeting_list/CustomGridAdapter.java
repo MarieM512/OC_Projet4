@@ -38,6 +38,8 @@ public class CustomGridAdapter extends ArrayAdapter<Room> {
         binding.ivFilterRoom.setImageResource(mRoomArrayList.get(position).getImage());
         binding.tvFilterRoom.setText(mRoomArrayList.get(position).getRoom());
 
+        binding.cvRoom.setContentDescription("Selected" + mRoomArrayList.get(position).getRoom());
+
         return binding.getRoot();
     }
 }
