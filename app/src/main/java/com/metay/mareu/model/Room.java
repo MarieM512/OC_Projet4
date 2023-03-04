@@ -50,6 +50,4 @@ public enum Room {
     public String getRoom() {
         return room;
     }
-
-
 }

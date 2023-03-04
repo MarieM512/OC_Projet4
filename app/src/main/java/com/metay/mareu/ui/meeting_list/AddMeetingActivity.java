@@ -47,6 +47,11 @@ public class AddMeetingActivity extends AppCompatActivity {
     String myFormat = "dd/MM/yy";
     int selectedHour = 0;
     int selectedMin = 0;
+    String currentDate = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date());
+    String hour = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+    int currentHour = Integer.parseInt(hour);
+    String min = new SimpleDateFormat("mm", Locale.getDefault()).format(new Date());
+    int currentMin = Integer.parseInt(min);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,13 +131,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int error = 0;
-                String currentDate = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date());
-                String hour = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
-                int currentHour = Integer.parseInt(hour);
-                String min = new SimpleDateFormat("mm", Locale.getDefault()).format(new Date());
-                int currentMin = Integer.parseInt(min);
-
-                // Name
                 if (binding.inputName.getText().toString().equals("") || binding.inputName.length() > 25) {
                     binding.layoutName.setError("Put a name meeting");
                     error++;
@@ -140,7 +138,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                     binding.layoutName.setError(null);
                 }
 
-                // Date
                 if (binding.inputDate.getText().toString().equals("")) {
                     binding.layoutDate.setError("Pick a date");
                     error++;
@@ -148,7 +145,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                     binding.layoutDate.setError(null);
                 }
 
-                // Time
                 if (binding.inputTime.getText().toString().equals("")) {
                     binding.layoutTime.setError("Select a time");
                     error++;
@@ -165,7 +161,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                     binding.layoutTime.setError(null);
                 }
 
-                // Room
                 if (binding.inputRoom.getText().toString().equals("")) {
                     binding.layoutRoom.setError("Chose a room");
                     error++;
@@ -173,29 +168,36 @@ public class AddMeetingActivity extends AppCompatActivity {
                     binding.layoutRoom.setError(null);
                 }
 
-                // Guests
                 if (binding.tvGuests.getText().toString().equals("")) {
                     binding.scrollView.scrollTo(0, binding.scrollView.getBottom());
                     error++;
                 }
 
                 if (error == 0) {
-                    Meeting meeting = new Meeting(
-                            binding.inputName.getText().toString(),
-                            binding.inputDate.getText().toString(),
-                            binding.inputTime.getText().toString(),
-                            currentRoom,
-                            binding.tvGuests.getText().toString()
-                    );
-                    model.addMeeting(meeting);
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    addMeeting(model);
                 } else {
                     Toast.makeText(AddMeetingActivity.this, "Please complete all fields", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    /**
+     * Add the new meeting to the list when all fields are completed
+     * @param model
+     */
+    public void addMeeting(MainViewModel model) {
+        Meeting meeting = new Meeting(
+                binding.inputName.getText().toString(),
+                binding.inputDate.getText().toString(),
+                binding.inputTime.getText().toString(),
+                currentRoom,
+                binding.tvGuests.getText().toString()
+        );
+        model.addMeeting(meeting);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     /**
