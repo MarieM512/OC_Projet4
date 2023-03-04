@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -20,8 +22,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projet4.databinding.ActivityAddMeetingBinding;
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 import com.metay.mareu.MainActivity;
 import com.metay.mareu.injection.ViewModelFactory;
 import com.metay.mareu.model.Meeting;
@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -40,6 +41,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     TimePickerDialog mTimePickerDialog;
     Room currentRoom;
+    String myFormat = "dd/MM/yy";
+    int selectedHour = 0;
+    int selectedMin = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +74,16 @@ public class AddMeetingActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, day);
-                updateLabel();
+                SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
+                binding.inputDate.setText(dateFormat.format(myCalendar.getTime()));
             }
         };
         binding.inputDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(AddMeetingActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddMeetingActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
             }
         });
 
@@ -88,6 +95,13 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        binding.layoutGuests.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailValidator(binding.inputGuests);
+            }
+        });
+
         // Btn Cancel
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +110,27 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnClearGuests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.tvGuests.setText("");
+                binding.btnClearGuests.setEnabled(false);
+            }
+        });
+
         // Btn Create
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer error = 0;
+                int error = 0;
+                String currentDate = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date());
+                String hour = new SimpleDateFormat("HH", Locale.getDefault()).format(new Date());
+                int currentHour = Integer.parseInt(hour);
+                String min = new SimpleDateFormat("mm", Locale.getDefault()).format(new Date());
+                int currentMin = Integer.parseInt(min);
 
                 // Name
-                if (binding.inputName.getText().toString().equals("")) {
+                if (binding.inputName.getText().toString().equals("") || binding.inputName.length() > 25) {
                     binding.layoutName.setError("Put a name meeting");
                     error++;
                 } else {
@@ -122,6 +149,15 @@ public class AddMeetingActivity extends AppCompatActivity {
                 if (binding.inputTime.getText().toString().equals("")) {
                     binding.layoutTime.setError("Select a time");
                     error++;
+                } else if (binding.inputDate.getText().toString().equals(currentDate)) {
+                    if (selectedHour <= currentHour) {
+                        if (selectedMin <= currentMin) {
+                            binding.layoutTime.setError("Select an available time");
+                            error++;
+                        }
+                    } else {
+                        binding.layoutTime.setError(null);
+                    }
                 } else {
                     binding.layoutTime.setError(null);
                 }
@@ -135,12 +171,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }
 
                 // Guests
-                if (binding.inputGuests.getText().toString().equals("")) {
-                    binding.layoutGuests.setError("Only you ?");
+                if (binding.tvGuests.getText().toString().equals("")) {
                     binding.scrollView.scrollTo(0, binding.scrollView.getBottom());
                     error++;
-                } else {
-                    binding.layoutGuests.setError(null);
                 }
 
                 if (error == 0) {
@@ -149,7 +182,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                             binding.inputDate.getText().toString(),
                             binding.inputTime.getText().toString(),
                             currentRoom,
-                            binding.inputGuests.getText().toString()
+                            binding.tvGuests.getText().toString()
                     );
                     model.addMeeting(meeting);
 
@@ -162,18 +195,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void updateLabel() {
-        String myFormat = "dd/MM/yy";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.FRANCE);
-        binding.inputDate.setText(dateFormat.format(myCalendar.getTime()));
-    }
-
     private void timePickerDialog() {
         mTimePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo, new TimePickerDialog.OnTimeSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String min;
+                selectedHour = hourOfDay;
+                selectedMin = minute;
                 if (minute < 10) {
                     min = "0" + minute;
                 } else {
@@ -186,6 +215,20 @@ public class AddMeetingActivity extends AppCompatActivity {
         mTimePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mTimePickerDialog.setTitle("Select a time");
         mTimePickerDialog.show();
+    }
+
+    private void emailValidator(EditText email) {
+        String emailToString = email.getText().toString();
+        if (!emailToString.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailToString).matches()) {
+            if (binding.tvGuests.getText().toString() == "") {
+                binding.btnClearGuests.setEnabled(true);
+                binding.tvGuests.setText(emailToString);
+            } else {
+                binding.tvGuests.append(", " + emailToString);
+            }
+        } else {
+            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

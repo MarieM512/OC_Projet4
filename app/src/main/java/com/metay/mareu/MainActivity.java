@@ -112,7 +112,9 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
 
         switch (item.getItemId()) {
             case R.id.filter_date:
-                new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
                 break;
             case R.id.filter_room:
                 RoomFilterAlertDialog();
