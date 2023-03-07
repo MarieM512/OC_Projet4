@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
@@ -12,7 +11,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.metay.mareu.api.FakeMeetingApiServiceGenerator;
 import com.metay.mareu.api.MeetingApiService;
-import com.metay.mareu.api.MeetingDataApiService;
 import com.metay.mareu.di.DI;
 import com.metay.mareu.model.Meeting;
 import com.metay.mareu.model.Room;
@@ -33,7 +31,6 @@ import java.util.Objects;
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MeetingUnitTest {

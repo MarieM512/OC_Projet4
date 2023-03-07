@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
     // Room
     MaterialAlertDialogBuilder roomDialog;
     AlertDialog mAlertDialog;
+    GridView gridView;
 
     @SuppressLint({"NotifyDataSetChanged", "ResourceType"})
     @Override
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
         });
 
         roomDialog = new MaterialAlertDialogBuilder(MainActivity.this);
+        gridView = new GridView(this);
+        gridView.setId(1);
     }
 
     @Override
@@ -140,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements MeetingInterface 
      * Display an alert dialog for select a room filter
      */
     private void RoomFilterAlertDialog() {
-        GridView gridView = new GridView(this);
         ArrayList<Room> mList = new ArrayList<>(Arrays.asList(Room.values()));
         gridView.setAdapter(new CustomGridAdapter(this, R.layout.dialog_room_filter_item, mList));
         gridView.setHorizontalSpacing(8);
