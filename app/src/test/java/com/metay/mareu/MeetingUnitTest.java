@@ -104,4 +104,15 @@ public class MeetingUnitTest {
         assertEquals(Objects.requireNonNull(meetings.getValue()).size(), 1);
         assertTrue(meetings.getValue().contains(meetingFirst));
     }
+
+    @Test
+    public void clearFilter() {
+        MutableLiveData<ArrayList<Meeting>> meetings = mViewModel.getMeetingList();
+        assertEquals(Objects.requireNonNull(meetings.getValue()).size(), 2);
+        String room = Room.MARIO.getRoom();
+        mViewModel.roomFilter(room);
+        assertEquals(Objects.requireNonNull(meetings.getValue()).size(), 1);
+        mViewModel.getMeetingList();
+        assertEquals(Objects.requireNonNull(meetings.getValue()).size(), 2);
+    }
 }
