@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * Meeting unit test
  *
  */
 @RunWith(MockitoJUnitRunner.class)

@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Meeting instrumented test
  *
  */
 @RunWith(AndroidJUnit4.class)
