@@ -36,7 +36,7 @@ public enum Room {
     /**
      * Get room image
      *
-     * @return
+     * @return the image room
      */
     public int getImage() {
         return image;
@@ -45,7 +45,7 @@ public enum Room {
     /**
      * Get room name
      *
-     * @return
+     * @return the name room
      */
     public String getRoom() {
         return room;

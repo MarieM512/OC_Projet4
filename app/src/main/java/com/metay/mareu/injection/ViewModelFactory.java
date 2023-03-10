@@ -22,7 +22,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     /**
      * Get a new instance on {@link ViewModelFactory}. Useful for tests, so we ensure the context is clean.
      *
-     * @return
+     * @return {@link ViewModelFactory}
      */
     public static ViewModelFactory getInstance(Context context) {
         if (factory == null) {

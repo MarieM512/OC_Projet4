@@ -53,7 +53,7 @@ public class Meeting {
     /**
      * Get the ID of the meeting
      *
-     * @return
+     * @return the id of the meeting
      */
     public String getId() {
         return id;
@@ -71,7 +71,7 @@ public class Meeting {
     /**
      * Get the name of the meeting
      *
-     * @return
+     * @return the name of the meeting
      */
     public String getName() {
         return name;
@@ -89,7 +89,7 @@ public class Meeting {
     /**
      * Get the date of the meeting
      *
-     * @return
+     * @return the date of the meeting
      */
     public String getDate() {
         return date;
@@ -107,7 +107,7 @@ public class Meeting {
     /**
      * Get the time of the meeting
      *
-     * @return
+     * @return the time of the meeting
      */
     public String getTime() {
         return time;
@@ -125,7 +125,7 @@ public class Meeting {
     /**
      * Get the room name of the meeting
      *
-     * @return
+     * @return the room name of the meeting
      */
     public String getRoom() {
         return room.getRoom();
@@ -141,9 +141,9 @@ public class Meeting {
     }
 
     /**
-     * Get the room image of the meeting
+     * Get the image room of the meeting
      *
-     * @return
+     * @return the image room of the meeting
      */
     public Integer getImgRoom() {
         return room.getImage();
@@ -152,7 +152,7 @@ public class Meeting {
     /**
      * Get the participants of the meeting
      *
-     * @return
+     * @return the guests of the meeting
      */
     public String getGuests() {
         return guests;

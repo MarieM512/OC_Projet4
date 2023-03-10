@@ -27,7 +27,7 @@ public class MainViewModel extends ViewModel {
     /**
      * Fetch the list of meeting
      *
-     * @return
+     * @return the actual list of the meeting
      */
     public MutableLiveData<ArrayList<Meeting>> getMeetingList() {
         mLiveData.setValue(mMeetingArrayList);
