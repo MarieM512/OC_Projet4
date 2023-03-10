@@ -62,7 +62,7 @@ public class Meeting {
     /**
      * Set the ID of the meeting
      *
-     * @param id
+     * @param id id of the meeting
      */
     public void setId(String id) {
         this.id = id;
@@ -80,7 +80,7 @@ public class Meeting {
     /**
      * Set the name of the meeting
      *
-     * @param name
+     * @param name name of the meeting
      */
     public void setName(String name) {
         this.name = name;
@@ -98,7 +98,7 @@ public class Meeting {
     /**
      * Set the date of the meeting
      *
-     * @param date
+     * @param date date of the meeting
      */
     public void setDate(String date) {
         this.date = date;
@@ -116,7 +116,7 @@ public class Meeting {
     /**
      * Set the time of the meeting
      *
-     * @param time
+     * @param time time of the meeting
      */
     public void setTime(String time) {
         this.time = time;
@@ -134,7 +134,7 @@ public class Meeting {
     /**
      * Set the room name of the meeting
      *
-     * @param room
+     * @param room room of the meeting
      */
     public void setRoom(Room room) {
         this.room = room;
@@ -161,7 +161,7 @@ public class Meeting {
     /**
      * Set the participants of the meeting
      *
-     * @param guests
+     * @param guests guests of the meeting
      */
     public void setGuests(String guests) {
         this.guests = guests;

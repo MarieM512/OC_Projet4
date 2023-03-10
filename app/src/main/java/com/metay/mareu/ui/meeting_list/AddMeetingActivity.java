@@ -184,7 +184,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     /**
      * Add the new meeting to the list when all fields are completed
-     * @param model
+     * @param model add the new meeting with all the information
      */
     public void addMeeting(MainViewModel model) {
         Meeting meeting = new Meeting(
@@ -228,7 +228,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     /**
      * Used to check if email input is valid
      *
-     * @param email
+     * @param email email of the guest
      */
     private void emailValidator(EditText email) {
         String emailToString = email.getText().toString();
@@ -247,7 +247,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     /**
      * Used to navigate to this activity
      *
-     * @param activity
+     * @param activity activity to navigate
      */
     public static void navigate(Activity activity) {
         Intent intent = new Intent(activity, AddMeetingActivity.class);

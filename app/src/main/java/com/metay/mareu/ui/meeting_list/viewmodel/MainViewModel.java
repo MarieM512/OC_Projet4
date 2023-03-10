@@ -37,7 +37,7 @@ public class MainViewModel extends ViewModel {
     /**
      * Delete a meeting to the list and display the update meeting list
      *
-     * @param meeting
+     * @param meeting meeting to delete
      */
     public void deleteMeeting(Meeting meeting) {
         mDataRepository.deleteMeeting(meeting);
@@ -47,7 +47,7 @@ public class MainViewModel extends ViewModel {
     /**
      * Add a meeting to the list and display the update meeting list
      *
-     * @param meeting
+     * @param meeting meeting to add
      */
     public void addMeeting(Meeting meeting) {
         mDataRepository.createMeeting(meeting);
@@ -57,7 +57,7 @@ public class MainViewModel extends ViewModel {
     /**
      * Filter the meeting list with the select date
      *
-     * @param date
+     * @param date date to filter
      */
     public void dateFilter(String date) {
         ArrayList<Meeting> dateFilterList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class MainViewModel extends ViewModel {
     /**
      * Filter the meeting list with the select room
      *
-     * @param room
+     * @param room room to filter
      */
     public void roomFilter(String room) {
         ArrayList<Meeting> roomFilterList = new ArrayList<>();
