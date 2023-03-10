@@ -48,7 +48,7 @@ public class MeetingListAdapter extends ListAdapter<Meeting, MeetingListAdapter.
         /**
          * Bind data in the recycler view
          *
-         * @param meeting
+         * @param meeting meeting to binding
          */
         public void bind(Meeting meeting) {
             String title = meeting.getName() + " - " + meeting.getTime() + " - " + meeting.getRoom();

@@ -28,7 +28,7 @@ public class MeetingRepository {
     /**
      * Create the meeting in {@link MeetingApiService}
      *
-     * @param meeting
+     * @param meeting meeting to create
      */
     public void createMeeting(Meeting meeting) {
         mApiService.createMeeting(meeting);
@@ -37,7 +37,7 @@ public class MeetingRepository {
     /**
      * Delete the meeting in {@link MeetingApiService}
      *
-     * @param meeting
+     * @param meeting meeting to delete
      */
     public void deleteMeeting(Meeting meeting) {
         mApiService.deleteMeeting(meeting);

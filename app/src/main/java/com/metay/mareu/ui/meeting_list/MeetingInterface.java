@@ -10,7 +10,7 @@ public interface MeetingInterface {
     /**
      * Remove a meeting
      *
-     * @param meeting
+     * @param meeting meeting to remove
      */
     void removeMeeting(Meeting meeting);
 }
