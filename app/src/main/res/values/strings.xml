@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">Projet4</string>
+    <string name="app_name">Ma réu</string>
+    <string name="meeting_name">Meeting name</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="room">Room</string>
+    <string name="guests">Guests</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="icon_s_room">Image room</string>
+    <string name="room_image">Room image</string>
+    <string name="meeting_information">Information about the meeting like the name, the hour and the room</string>
+    <string name="participants_of_the_meeting">Participants of the meeting</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all_participants">Delete all participants</string>
+    <string name="all_guests">All guests</string>
+    <string name="add_a_new_meeting">Add a new meeting</string>
+    <string name="filter_by_date">Filter by date</string>
+    <string name="filter_by_room">Filter by room</string>
+    <string name="clear_all_filter">Clear all filter</string>
 </resources>
