@@ -19,7 +19,7 @@ public class MeetingRepository {
     /**
      * Get the meetings in {@link MeetingApiService}
      *
-     * @return
+     * @return the list of the meetings
      */
     public ArrayList<Meeting> getMeeting() {
         return mApiService.getMeeting();
