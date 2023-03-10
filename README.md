@@ -1,6 +1,7 @@
 # OC_Projet4
 
 Cette application a pour fonction de répertorier la liste des réunions qui peuvent être crées et supprimées.
+Un système de filtrage par date ou salle sont disponible.
 
 Pré-requis : Android Studio
 
