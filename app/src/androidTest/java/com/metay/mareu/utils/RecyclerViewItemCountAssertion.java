@@ -10,6 +10,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 
+/**
+ * ViewAssertion to count the number of item in the recyclerview
+ */
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
     private final Matcher<Integer> matcher;
 

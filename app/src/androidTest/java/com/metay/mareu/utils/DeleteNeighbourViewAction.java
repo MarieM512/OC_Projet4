@@ -9,6 +9,9 @@ import com.example.projet4.R;
 
 import org.hamcrest.Matcher;
 
+/**
+ * ViewAction to delete a neighbour
+ */
 public class DeleteNeighbourViewAction implements ViewAction {
 
     @Override
