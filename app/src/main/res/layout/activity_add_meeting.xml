@@ -175,6 +175,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:freezesText="true"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/layout_guests"
             app:layout_constraintStart_toStartOf="parent"
