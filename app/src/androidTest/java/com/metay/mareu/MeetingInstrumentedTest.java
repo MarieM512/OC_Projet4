@@ -135,7 +135,7 @@ public class MeetingInstrumentedTest {
      * Add a room filter
      */
     @Test
-    public void F_dateFilterMeeting() {
+    public void F_roomFilterMeeting() {
         onView(withId(R.id.rv_meeting)).check(withItemCount(2));
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getContext());
         onView(ViewMatchers.withText("Filter by room")).perform(click());
